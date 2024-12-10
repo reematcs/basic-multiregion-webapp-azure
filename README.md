@@ -1,5 +1,5 @@
 # Basic Multiregion Azure Web App
-
+```
 graph TB
     TM[Azure Traffic Manager] --> EUS[East US Region]
     TM --> WUS[West US Region]
@@ -35,3 +35,4 @@ graph TB
     class TM,EUS,WUS,EUSWEBAPP,WUSWEBAPP,ACR,KV azure
     class EUSVNET,WUSVNET,EUSPE,WUSPE network
     class GH,GHA security
+```
