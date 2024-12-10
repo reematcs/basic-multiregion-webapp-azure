@@ -1,5 +1,5 @@
 # Basic Multiregion Azure Web App
-```
+```mermaid
 graph TB
     TM[Azure Traffic Manager] --> EUS[East US Region]
     TM --> WUS[West US Region]
