@@ -1,16 +1,44 @@
 # Basic Multiregion Azure Web App
 ```mermaid
 architecture-beta
-    group api(cloud)[API]
+    group shared(cloud)[Shared Services]
+        service kv(database)[Key Vault] in shared
+        service acr(database)[Premium ACR] in shared
+        service tfstate(disk)[State Storage] in shared
 
-    service db(database)[Database] in api
-    service disk1(disk)[Storage] in api
-    service disk2(disk)[Storage] in api
-    service server(server)[Server] in api
+    group primary(cloud)[East US Region]
+        service east_vnet(internet)[VNet East] in primary
+        service east_app(server)[Web App] in primary
+        service east_pe(disk)[Private EP] in primary
 
-    db:L -- R:server
-    disk1:T -- B:server
-    disk2:T -- B:db
+    group secondary(cloud)[Central US Region]
+        service central_vnet(internet)[VNet Central] in secondary
+        service central_app(server)[Web App] in secondary
+        service central_pe(disk)[Private EP] in secondary
+
+    group cicd(cloud)[CI/CD]
+        service repo(server)[GitHub] in cicd
+        service actions(server)[Actions] in cicd
+
+    service tm(internet)[Traffic Manager]
+
+    tm:B -- T:east_app
+    tm:B -- T:central_app
+
+    repo:R -- L:actions
+    actions:R -- L:acr
+
+    east_vnet:R -- L:east_app
+    east_app:B -- T:east_pe
+
+    central_vnet:R -- L:central_app
+    central_app:B -- T:central_pe
+
+    kv:T -- B:east_app
+    kv:T -- B:central_app
+
+    acr:L -- R:east_app
+    acr:R -- L:central_app
 ```
 
 ```mermaid
