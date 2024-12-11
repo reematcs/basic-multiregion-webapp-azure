@@ -16,7 +16,7 @@ architecture-beta
         service central_app(server)[Web App] in secondary
         service central_pe(disk)[Private EP] in secondary
 
-    group cicd(cloud)[CI/CD]
+    group cicd(cloud)[CICD]
         service repo(server)[GitHub] in cicd
         service actions(server)[Actions] in cicd
 
