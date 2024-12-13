@@ -1,14 +1,12 @@
-
 variable "resource_group_name" {
   type        = string
-  description = "Name of the resource group"
+  description = "Name of the resource group."
 }
 
 variable "location" {
   type        = string
-  description = "Azure region where the storage account will be created"
+  description = "Location of the resource group."
 }
-
 variable "storage_account_name" {
   type        = string
   description = "Name of the storage account (optional, will be generated if not provided)"
