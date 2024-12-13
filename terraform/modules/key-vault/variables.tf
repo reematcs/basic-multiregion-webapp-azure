@@ -1,3 +1,12 @@
+variable "resource_group_name" {
+  type        = string
+  description = "Name of the resource group where the key vault will be created"
+}
+
+variable "location" {
+  type        = string
+  description = "Azure location where the key vault will be created"
+}
 variable "resource_group_location" {
   type        = string
   description = "Location for all resources."
