@@ -1,6 +1,6 @@
 
 resource "random_string" "storage_name" {
-  length  = 12
+  length  = 13
   lower   = true
   numeric = true
   special = false

@@ -27,3 +27,21 @@ variable "key_vault_name" {
   description = "Name of the key vault"
   default     = null
 }
+
+variable "container_registry_name" {
+  type        = string
+  description = "Name of the container registry"
+  default     = null
+}
+
+variable "traffic_manager_name" {
+  type        = string
+  description = "Name of the Traffic Manager profile"
+  default     = "tm-healthapp-dev"
+}
+
+variable "dns_name" {
+  type        = string
+  description = "DNS name for the Traffic Manager profile"
+  default     = "healthapp-dev"
+}
