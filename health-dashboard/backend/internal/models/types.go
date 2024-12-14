@@ -23,3 +23,7 @@ type FailoverHistory struct {
 	CurrentPrimary string    `json:"currentPrimary"`
 	FailoverCount  int       `json:"failoverCount"`
 }
+
+type FailoverRequest struct {
+	TargetRegion string `json:"targetRegion" binding:"required"`
+}

@@ -1,5 +1,12 @@
+resource "random_string" "web_app_name" {
+  length  = 8
+  special = false
+  upper   = false
+}
+
+
 resource "azurerm_service_plan" "plan" {
-  name                = var.service_plan_name
+  name                = "asp-${var.service_plan_name}-${random_string.web_app_name.result}"
   resource_group_name = var.resource_group_name
   location            = var.location
   os_type             = "Linux"
@@ -9,7 +16,7 @@ resource "azurerm_service_plan" "plan" {
 }
 
 resource "azurerm_linux_web_app" "app" {
-  name                = var.web_app_name
+  name                = "app-${var.web_app_name}-${random_string.web_app_name.result}"
   resource_group_name = var.resource_group_name
   location            = var.location
   service_plan_id     = azurerm_service_plan.plan.id
@@ -63,7 +70,7 @@ resource "azurerm_private_endpoint" "webapp_pe" {
 # In modules/web-app/main.tf
 
 resource "azurerm_application_insights" "app_insights" {
-  name                = "${var.web_app_name}-appinsights"  # Use web_app_name instead of name
+    name                = "appi-${var.web_app_name}-${random_string.web_app_name.result}"
   resource_group_name = var.resource_group_name
   location            = var.location
   application_type    = "web"

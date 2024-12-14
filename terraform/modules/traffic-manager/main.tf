@@ -1,10 +1,16 @@
+
+resource "random_string" "tm_name" {
+  length  = 8
+  special = false
+  upper   = false
+}
 resource "azurerm_traffic_manager_profile" "tm" {
-  name                   = var.traffic_manager_name
+  name                   = "tm-${var.traffic_manager_name}-${random_string.tm_name.result}"
   resource_group_name    = var.resource_group_name
   traffic_routing_method = "Priority"
 
   dns_config {
-    relative_name = var.dns_name
+    relative_name = "${var.dns_name}-${random_string.tm_name.result}"
     ttl           = 60
   }
 

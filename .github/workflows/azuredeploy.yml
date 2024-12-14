@@ -1,0 +1,70 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  AZURE_WEBAPP_NAME_PRIMARY: app-healthapp-westus-dev    # Replace with your actual web app name
+  AZURE_WEBAPP_NAME_SECONDARY: app-healthapp-centralus-dev  # Replace with your actual web app name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.23.4'
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Build Frontend
+      working-directory: ./health-dashboard/frontend
+      run: |
+        npm install
+        npm run build
+
+    - name: Build Backend
+      working-directory: ./health-dashboard/backend
+      run: |
+        go build -v ./...
+        go test ./...
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Login to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.AZURE_REGISTRY_NAME }}
+        password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+
+    - name: Build and Push Docker Image
+      working-directory: ./health-dashboard
+      run: |
+        docker build -t ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/healthapp:${{ github.sha }} .
+        docker push ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/healthapp:${{ github.sha }}
+
+    - name: Deploy to Primary Region
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME_PRIMARY }}
+        images: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/healthapp:${{ github.sha }}
+
+    - name: Deploy to Secondary Region
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME_SECONDARY }}
+        images: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/healthapp:${{ github.sha }}
