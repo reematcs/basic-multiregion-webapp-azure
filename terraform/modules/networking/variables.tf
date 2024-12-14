@@ -24,13 +24,12 @@ variable "dns_servers" {
   description = "Custom DNS servers"
   default     = []
 }
-
 variable "subnet_configurations" {
   type = list(object({
-    name                        = string
-    address_prefix              = string
-    service_endpoints          = optional(list(string), [])
-    create_network_security_group = optional(bool, false)
+    name                          = string
+    address_prefix                = string
+    create_network_security_group = bool
+    service_endpoints             = list(string)
     delegation = optional(object({
       name                       = string
       service_delegation_name    = string
@@ -42,13 +41,13 @@ variable "subnet_configurations" {
       direction                  = string
       access                     = string
       protocol                   = string
-      source_port_range         = string
-      destination_port_range    = string
-      source_address_prefix     = string
+      source_port_range          = string
+      destination_port_range     = string
+      source_address_prefix      = string
       destination_address_prefix = string
     })))
   }))
-  description = "Configuration for subnets including NSG rules"
+  description = "List of subnet configurations"
 }
 
 variable "tags" {

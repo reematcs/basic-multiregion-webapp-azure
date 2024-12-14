@@ -5,15 +5,15 @@ resource "azurerm_traffic_manager_profile" "tm" {
 
   dns_config {
     relative_name = var.dns_name
-    ttl          = 60
+    ttl           = 60
   }
 
   monitor_config {
     protocol                     = "HTTPS"
-    port                        = 443
-    path                        = "/api/health/live"
-    interval_in_seconds         = 30
-    timeout_in_seconds          = 10
+    port                         = 443
+    path                         = "/api/health/live"
+    interval_in_seconds          = 30
+    timeout_in_seconds           = 10
     tolerated_number_of_failures = 3
   }
 

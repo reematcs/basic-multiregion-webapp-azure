@@ -56,3 +56,9 @@ variable "tags" {
   description = "Tags to apply to resources"
   default     = {}
 }
+
+variable "private_endpoint_subnet_id" {
+  type        = string
+  description = "Subnet ID for the private endpoint"
+}
+

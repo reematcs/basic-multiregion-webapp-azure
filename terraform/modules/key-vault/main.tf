@@ -20,7 +20,7 @@ resource "azurerm_key_vault" "vault" {
   tenant_id                  = data.azurerm_client_config.current.tenant_id
   sku_name                   = var.sku_name
   soft_delete_retention_days = 7
-
+  tags = var.tags
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = local.current_user_id

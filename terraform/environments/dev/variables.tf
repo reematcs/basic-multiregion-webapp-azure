@@ -1,25 +1,25 @@
 variable "resource_group_name" {
   type        = string
-  description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
+  description = "Name of the resource group"
   default     = "rg-dev-azure"
 }
 
-variable "resource_group_location" {
+variable "primary_location" {
   type        = string
-  description = "Location for all resources."
-  default     = "eastus"
+  description = "Location for primary region resources"
+  default     = "westus"
+}
+
+variable "secondary_location" {
+  type        = string
+  description = "Location for secondary region resources"
+  default     = "centralus"
 }
 
 variable "storage_account_name" {
   type        = string
   description = "Name of the storage account (optional)"
   default     = null
-}
-
-variable "allowed_ip_addresses" {
-  type        = list(string)
-  description = "List of IP addresses allowed to access the storage account"
-  default     = []
 }
 
 variable "key_vault_name" {
@@ -34,14 +34,23 @@ variable "container_registry_name" {
   default     = null
 }
 
-variable "traffic_manager_name" {
+variable "app_name" {
   type        = string
-  description = "Name of the Traffic Manager profile"
-  default     = "tm-healthapp-dev"
+  description = "Base name for the application resources"
+  default     = "healthapp"
 }
 
-variable "dns_name" {
+variable "environment" {
   type        = string
-  description = "DNS name for the Traffic Manager profile"
-  default     = "healthapp-dev"
+  description = "Environment name for resource naming"
+  default     = "dev"
+}
+
+variable "common_tags" {
+  type        = map(string)
+  description = "Common tags for all resources"
+  default = {
+    environment = "dev"
+    managed_by  = "terraform"
+  }
 }

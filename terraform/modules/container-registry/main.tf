@@ -1,9 +1,9 @@
 # modules/container-registry/main.tf
 resource "random_string" "acr_name" {
-  length  = 8
-  special = false
-  upper   = false
-  min_lower = 1
+  length      = 8
+  special     = false
+  upper       = false
+  min_lower   = 1
   min_numeric = 1
 }
 
@@ -15,8 +15,8 @@ resource "azurerm_container_registry" "acr" {
   name                = local.container_registry_name
   resource_group_name = var.resource_group_name
   location            = var.location
-  sku                = var.sku
-  admin_enabled      = var.admin_enabled
+  sku                 = var.sku
+  admin_enabled       = var.admin_enabled
 
   dynamic "georeplications" {
     for_each = var.sku == "Premium" ? var.georeplication_locations : []

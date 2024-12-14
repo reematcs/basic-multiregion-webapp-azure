@@ -6,7 +6,7 @@ variable "resource_group_name" {
 variable "location" {
   type        = string
   description = "Location for the Container Registry"
-  default     = "eastus"
+  default     = "westus"
 }
 
 variable "container_registry_name" {
