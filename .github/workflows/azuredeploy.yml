@@ -7,8 +7,12 @@ on:
     branches: [ main ]
 
 env:
-  AZURE_WEBAPP_NAME_PRIMARY: app-app-healthapp-westus-dev-31bb0r64    # Replace with your actual web app name
-  AZURE_WEBAPP_NAME_SECONDARY: app-app-healthapp-centralus-dev-i5sugn88  # Replace with your actual web app name
+  AZURE_WEBAPP_NAME_PRIMARY: app-app-healthapp-westus-dev-31bb0r64
+  AZURE_WEBAPP_NAME_SECONDARY: app-app-healthapp-centralus-dev-i5sugn88
+  PRIMARY_REGION: "westus"
+  SECONDARY_REGION: "centralus"
+  PRIMARY_ROLE: "primary"
+  SECONDARY_ROLE: "secondary"
 
 jobs:
   build:
@@ -27,24 +31,31 @@ jobs:
       with:
         node-version: '20'
 
-    - name: Build Frontend
-      working-directory: ./health-dashboard/frontend
-      run: |
-        npm install
-        # Temporarily disable treating warnings as errors for CI
-        CI=false npm run build
-
-    - name: Build Backend
-      working-directory: ./health-dashboard/backend
-      run: |
-        go mod download
-        go build -v ./...
-        go test ./...
-
     - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Extract Subscription ID
+      run: |
+        SUBSCRIPTION_ID=$(echo '${{ secrets.AZURE_CREDENTIALS }}' | jq -r .subscriptionId)
+        echo "SUBSCRIPTION_ID=$SUBSCRIPTION_ID" >> $GITHUB_ENV
+
+    - name: Build Frontend
+      working-directory: ./health-dashboard/frontend
+      run: |
+        npm install
+        CI=false npm run build
+
+    - name: Build Backend
+      working-directory: ./health-dashboard/backend
+      env:
+        RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        TM_PROFILE_NAME: ${{ secrets.AZURE_TM_PROFILE_NAME }}
+      run: |
+        go mod download
+        go build -v ./...
+        go test ./...
 
     - name: Login to Azure Container Registry
       uses: azure/docker-login@v1
@@ -64,9 +75,19 @@ jobs:
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME_PRIMARY }}
         images: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/healthapp:${{ github.sha }}
+      env:
+        RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        TM_PROFILE_NAME: ${{ secrets.AZURE_TM_PROFILE_NAME }}
+        REGION: ${{ env.PRIMARY_REGION }}
+        ROLE: ${{ env.PRIMARY_ROLE }}
 
     - name: Deploy to Secondary Region
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME_SECONDARY }}
         images: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/healthapp:${{ github.sha }}
+      env:
+        RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        TM_PROFILE_NAME: ${{ secrets.AZURE_TM_PROFILE_NAME }}
+        REGION: ${{ env.SECONDARY_REGION }}
+        ROLE: ${{ env.SECONDARY_ROLE }}

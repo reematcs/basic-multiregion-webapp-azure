@@ -1,3 +1,4 @@
+// models/types.go
 package models
 
 import "time"
@@ -18,19 +19,23 @@ type HealthStatus struct {
 	LastChecked       time.Time `json:"lastChecked"`
 }
 
-type FailoverHistory struct {
-	LastFailover   time.Time `json:"lastFailover"`
-	CurrentPrimary string    `json:"currentPrimary"`
-	FailoverCount  int       `json:"failoverCount"`
-}
-
-type FailoverRequest struct {
-	TargetRegion string `json:"targetRegion" binding:"required"`
-}
-
 type Metric struct {
+	Name      string    `json:"name"`
+	Value     string    `json:"value"`
+	Timestamp time.Time `json:"timestamp"`
+}
+
+type FailoverHistory struct {
+	LastFailover   time.Time       `json:"lastFailover"`
+	CurrentPrimary string          `json:"currentPrimary"`
+	FailoverCount  int             `json:"failoverCount"`
+	Events         []FailoverEvent `json:"events"`
+}
+
+type FailoverEvent struct {
 	Timestamp    time.Time `json:"timestamp"`
-	Latency      float64   `json:"latency"`
-	RequestCount int64     `json:"requestCount"`
-	ErrorCount   int64     `json:"errorCount"`
+	FromRegion   string    `json:"fromRegion"`
+	ToRegion     string    `json:"toRegion"`
+	Status       string    `json:"status"`
+	ErrorMessage string    `json:"errorMessage,omitempty"`
 }
