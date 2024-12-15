@@ -1,4 +1,4 @@
-module health-dashboard
+module health-dashboard/backend
 
 go 1.23.4
 

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"health-dashboard/internal/models" // Add this import
+	"health-dashboard/backend/internal/models"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager"

@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"health-dashboard/internal/handlers" // Updated import path
 	"log"
 	"net/http"
 	"time"
+
+	"health-dashboard/backend/internal/handlers"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager"
