@@ -4,7 +4,7 @@ package services
 import (
 	"context"
 	"fmt"
-	"health-dashboard/internal/models"
+	"health-dashboard/backend/internal/models"
 	"time"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"

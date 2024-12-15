@@ -1,7 +1,7 @@
 package services
 
 import (
-	"health-dashboard/internal/models"
+	"health-dashboard/backend/internal/models"
 	"sync"
 	"time"
 )

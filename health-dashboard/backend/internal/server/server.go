@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	//health-dashboard/backend should be the root. Testing.
 	"health-dashboard/backend/internal/handlers"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
