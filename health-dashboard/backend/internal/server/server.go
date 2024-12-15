@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"health-dashboard/backend/internal/handlers" // Updated import path
+	"health-dashboard/internal/handlers" // Updated import path
 	"log"
 	"net/http"
 	"time"
