@@ -37,6 +37,7 @@ jobs:
     - name: Build Backend
       working-directory: ./health-dashboard/backend
       run: |
+        go mod download
         go build -v ./...
         go test ./...
 
