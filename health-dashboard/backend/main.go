@@ -43,7 +43,7 @@ func (s *Server) setupRoutes() *gin.Engine {
 	{
 		api.GET("/system", func(c *gin.Context) {
 			info := models.SystemInfo{
-				Region:           "East US",
+				Region:           "West US",
 				Hostname:         "webapp-1",
 				ContainerVersion: "1.0.0",
 				Timestamp:        time.Now(),
@@ -79,7 +79,7 @@ func (s *Server) setupRoutes() *gin.Engine {
 			response := gin.H{
 				"success":        true,
 				"timestamp":      time.Now(),
-				"previousRegion": "East US",
+				"previousRegion": "West US",
 				"newRegion":      request.TargetRegion,
 			}
 			c.JSON(http.StatusOK, response)
@@ -88,7 +88,7 @@ func (s *Server) setupRoutes() *gin.Engine {
 		api.GET("/failover/history", func(c *gin.Context) {
 			history := models.FailoverHistory{
 				LastFailover:   time.Now(),
-				CurrentPrimary: "East US",
+				CurrentPrimary: "West US",
 				FailoverCount:  1,
 			}
 			c.JSON(http.StatusOK, history)

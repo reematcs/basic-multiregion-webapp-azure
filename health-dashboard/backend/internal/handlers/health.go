@@ -1,60 +1,121 @@
-package handlers
+// backend/internal/services/health_checker.go
+package services
 
 import (
+	"context"
+	"fmt"
 	"health-dashboard/internal/models"
-	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin"
+	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/Azure/azure-sdk-for-go/sdk/containerregistry/armcontainerregistry"
+	"github.com/Azure/azure-sdk-for-go/sdk/keyvault/azsecrets"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager"
 )
 
-func HandleSystemInfo(c *gin.Context) {
-	info := models.SystemInfo{
-		Region:           "East US",
-		Hostname:         "webapp-1",
-		ContainerVersion: "1.0.0",
-		Timestamp:        time.Now(),
-	}
-	c.JSON(http.StatusOK, info)
+type HealthChecker struct {
+	cred           *azidentity.DefaultAzureCredential
+	tmClient       *armtrafficmanager.ProfilesClient
+	kvClient       *azsecrets.Client
+	acrClient      *armcontainerregistry.RegistriesClient
+	subscriptionID string
+	resourceGroup  string
+	region         string
+	role           string
+	profileName    string // Add this field
 }
 
-func HandleHealthStatus(c *gin.Context) {
-	status := models.HealthStatus{
-		TrafficManager:    "active",
-		KeyVault:          "connected",
-		ContainerRegistry: "connected",
-		RegionStatus:      "healthy",
-		Role:              "primary",
+func NewHealthChecker(subscriptionID, resourceGroup, region, role string) (*HealthChecker, error) {
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create credential: %v", err)
+	}
+
+	tmClient, err := armtrafficmanager.NewProfilesClient(subscriptionID, cred, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create traffic manager client: %v", err)
+	}
+
+	// TODO: Initialize other clients (kvClient, acrClient)
+
+	return &HealthChecker{
+		cred:           cred,
+		tmClient:       tmClient,
+		subscriptionID: subscriptionID,
+		resourceGroup:  resourceGroup,
+		region:         region,
+		role:           role,
+		profileName:    "your-tm-profile-name", // Set this based on your configuration
+	}, nil
+}
+
+// Add the TriggerFailover method
+func (hc *HealthChecker) TriggerFailover(ctx context.Context, targetRegion string) error {
+	result, err := hc.tmClient.Get(ctx, hc.resourceGroup, hc.profileName, nil)
+	if err != nil {
+		return fmt.Errorf("failed to get traffic manager profile: %v", err)
+	}
+
+	profile := result.Profile
+	for i := range profile.Properties.Endpoints {
+		var priority int64
+		if *profile.Properties.Endpoints[i].Properties.Target == targetRegion {
+			priority = 1
+		} else {
+			priority = 2
+		}
+		profile.Properties.Endpoints[i].Properties.Priority = &priority
+	}
+
+	_, err = hc.tmClient.CreateOrUpdate(ctx, hc.resourceGroup, hc.profileName, profile, nil)
+	if err != nil {
+		return fmt.Errorf("failed to update traffic manager profile: %v", err)
+	}
+
+	return nil
+}
+
+// Your existing methods...
+func (hc *HealthChecker) CheckHealth(ctx context.Context) (*models.HealthStatus, error) {
+	tmStatus := hc.checkTrafficManager(ctx)
+	kvStatus := hc.checkKeyVault(ctx)
+	acrStatus := hc.checkContainerRegistry(ctx)
+
+	status := &models.HealthStatus{
+		TrafficManager:    tmStatus,
+		KeyVault:          kvStatus,
+		ContainerRegistry: acrStatus,
+		RegionStatus:      "healthy", // Determined by overall health
+		Role:              hc.role,
 		LastChecked:       time.Now(),
 	}
-	c.JSON(http.StatusOK, status)
+
+	return status, nil
 }
 
-func HandleLiveCheck(c *gin.Context) {
-	c.String(http.StatusOK, "200 OK")
-}
-
-func HandleFailoverTrigger(c *gin.Context) {
-	var request models.FailoverRequest
-	if err := c.BindJSON(&request); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+func (hc *HealthChecker) checkTrafficManager(ctx context.Context) string {
+	_, err := hc.tmClient.Get(ctx, hc.resourceGroup, hc.profileName, nil)
+	if err != nil {
+		return "disconnected"
 	}
-
-	response := gin.H{
-		"success":        true,
-		"timestamp":      time.Now(),
-		"previousRegion": "East US",
-		"newRegion":      request.TargetRegion,
-	}
-	c.JSON(http.StatusOK, response)
+	return "connected"
 }
 
-func HandleFailoverHistory(c *gin.Context) {
-	history := models.FailoverHistory{
+func (hc *HealthChecker) checkKeyVault(ctx context.Context) string {
+	// TODO: Implement actual Key Vault health check
+	return "connected"
+}
+
+func (hc *HealthChecker) checkContainerRegistry(ctx context.Context) string {
+	// TODO: Implement actual Container Registry health check
+	return "connected"
+}
+
+func (hc *HealthChecker) GetFailoverHistory(ctx context.Context) (*models.FailoverHistory, error) {
+	// TODO: Implement actual failover history tracking
+	return &models.FailoverHistory{
 		LastFailover:   time.Now(),
-		CurrentPrimary: "East US",
+		CurrentPrimary: hc.region,
 		FailoverCount:  1,
-	}
-	c.JSON(http.StatusOK, history)
+	}, nil
 }

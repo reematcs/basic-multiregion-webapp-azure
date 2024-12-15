@@ -5,7 +5,7 @@
 # Multi-Region Azure Health Dashboard
 
 ## Overview
-The Multi-Region Azure Health Dashboard is a monitoring and failover management application deployed across East US and Central US regions.
+The Multi-Region Azure Health Dashboard is a monitoring and failover management application deployed across West US and Central US regions.
 
 ## Description
 The system uses a three-tier architecture, providing real-time health monitoring and controlled failover operations through Traffic Manager routing, secured by private endpoints and regional VNets. The system centralizes container and secret management while using GitHub Actions for consistent cross-region deployments.
@@ -19,7 +19,7 @@ The system uses a three-tier architecture, providing real-time health monitoring
    - Health status and failover control interface
 
 2. Application Tier
-   - Web Apps in East US (Primary) and Central US (Secondary)
+   - Web Apps in West US (Primary) and Central US (Secondary)
    - Regional VNets (10.1.0.0/16 and 10.2.0.0/16)
    - Health monitoring and failover logic
 

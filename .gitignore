@@ -21,4 +21,4 @@ terraform.rc
 *.DS_Store
 
 # Ignore node_modules files
-health-dashboard/frontend/node_modules/*
+/health-dashboard/frontend/node_modules/*

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"health-dashboard/backend/internal/handlers" // Updated import path
 	"log"
 	"net/http"
 	"time"
@@ -58,8 +59,22 @@ func NewServer() (*Server, error) {
 	}, nil
 }
 
-func (s *Server) setupRoutes() *gin.Engine {
+func (s *Server) setupRoutes() (*gin.Engine, error) {
 	r := gin.Default()
+
+	healthHandler, err := handlers.NewHealthHandler()
+	if err != nil {
+		return nil, err
+	}
+
+	api := r.Group("/api")
+	{
+		api.GET("/system", healthHandler.HandleSystemInfo)
+		api.GET("/health/status", healthHandler.HandleHealthStatus)
+		api.GET("/health/live", healthHandler.HandleLiveCheck)
+		api.POST("/failover/trigger", healthHandler.HandleFailoverTrigger)
+		api.GET("/failover/history", healthHandler.HandleFailoverHistory)
+	}
 
 	// Serve static files from the /static directory
 	r.Static("/static", "/static")
@@ -71,7 +86,7 @@ func (s *Server) setupRoutes() *gin.Engine {
 	// System information endpoint
 	r.GET("/api/system", func(c *gin.Context) {
 		info := SystemInfo{
-			Region:           "East US",
+			Region:           "West US",
 			Hostname:         "webapp-1",
 			ContainerVersion: "1.0.0",
 			Timestamp:        time.Now(),
@@ -110,7 +125,7 @@ func (s *Server) setupRoutes() *gin.Engine {
 		response := gin.H{
 			"success":        true,
 			"timestamp":      time.Now(),
-			"previousRegion": "East US",
+			"previousRegion": "West US",
 			"newRegion":      request.TargetRegion,
 		}
 		c.JSON(http.StatusOK, response)
@@ -120,22 +135,25 @@ func (s *Server) setupRoutes() *gin.Engine {
 	r.GET("/api/failover/history", func(c *gin.Context) {
 		history := FailoverHistory{
 			LastFailover:   time.Now(),
-			CurrentPrimary: "East US",
+			CurrentPrimary: "West US",
 			FailoverCount:  1,
 		}
 		c.JSON(http.StatusOK, history)
 	})
 
-	return r
+	return r, nil
 }
-
 func main() {
 	server, err := NewServer()
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)
 	}
 
-	r := server.setupRoutes()
+	r, err := server.setupRoutes() // Change to capture both return values
+	if err != nil {
+		log.Fatalf("Failed to setup routes: %v", err)
+	}
+
 	if err := r.Run(":8080"); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}

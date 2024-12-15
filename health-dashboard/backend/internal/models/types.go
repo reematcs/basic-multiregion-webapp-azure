@@ -27,3 +27,10 @@ type FailoverHistory struct {
 type FailoverRequest struct {
 	TargetRegion string `json:"targetRegion" binding:"required"`
 }
+
+type Metric struct {
+	Timestamp    time.Time `json:"timestamp"`
+	Latency      float64   `json:"latency"`
+	RequestCount int64     `json:"requestCount"`
+	ErrorCount   int64     `json:"errorCount"`
+}
