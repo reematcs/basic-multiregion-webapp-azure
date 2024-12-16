@@ -1,0 +1,8 @@
+FROM golang:1.23.4
+WORKDIR /app
+COPY ./debug/go.mod ./
+RUN go mod download
+COPY ./debug/cmd/simulator ./cmd/simulator
+RUN CGO_ENABLED=0 GOOS=linux go build -o traffic-simulator ./cmd/simulator
+
+CMD ["/app/traffic-simulator"]

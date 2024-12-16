@@ -1,0 +1,82 @@
+services:
+  frontend-dev:
+    image: node:20-slim
+    working_dir: /app
+    volumes:
+      - ./health-dashboard/frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+      - "9230:9229"  # Map container's 9229 to host's 9230
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - CI=true
+    command: sh -c "npm install && npm run start:debug"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - west-us
+      - central-us
+  west-us:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - REGION=westus  # From your deployment
+      - VNET=10.1.0.0/16  # From networking_primary VNet
+      - DEBUG=true
+      # Azure credentials and config
+      - SUBSCRIPTION_ID=2ecfa960-1b3a-4817-b1e4-5c0fa4056cbe
+      - RESOURCE_GROUP=rg-dev-azure
+      - APP_NAME=app-app-healthapp-westus-dev-31bb0r64
+      - TM_PROFILE_NAME=tm-tm-healthapp-dev-jdm9m5hr
+      - TENANT_ID=674d3e6c-45f7-42e9-938c-fcd01e3ff57c
+      - ROLE=primary
+      - PAIRED_APP_NAME=app-app-healthapp-centralus-dev-i5sugn88
+      - PAIRED_REGION=centralus
+      - HOSTNAME=webapp-west-1
+      - LOCAL_MODE=true
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./health-dashboard/backend:/app/backend:ro
+      - ./health-dashboard/frontend/src:/app/frontend/src:ro
+  central-us:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - REGION=centralus  # From your deployment
+      - VNET=10.2.0.0/16  # From networking_secondary VNet
+      - DEBUG=true
+      # Azure credentials and config
+      - SUBSCRIPTION_ID=2ecfa960-1b3a-4817-b1e4-5c0fa4056cbe
+      - RESOURCE_GROUP=rg-dev-azure
+      - APP_NAME=app-app-healthapp-centralus-dev-i5sugn88
+      - TM_PROFILE_NAME=tm-tm-healthapp-dev-jdm9m5hr
+      - TENANT_ID=674d3e6c-45f7-42e9-938c-fcd01e3ff57c
+      - ROLE=secondary
+      - PAIRED_APP_NAME=app-app-healthapp-westus-dev-31bb0r64
+      - PAIRED_REGION=westus
+      - HOSTNAME=webapp-central-1
+      - LOCAL_MODE=true
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./health-dashboard/backend:/app/backend:ro
+      - ./health-dashboard/frontend/src:/app/frontend/src:ro
+
+  traffic-manager:
+    build:
+      context: .
+      dockerfile: debug/Dockerfile.debug
+    ports:
+      - "8080:8080"
+    environment:
+      - PRIMARY_ENDPOINT=app-app-healthapp-westus
+      - SECONDARY_ENDPOINT=app-app-healthapp-centralus
+      - TM_PROFILE=healthapp-dev-20241331-jdm9m5hr.trafficmanager.net
+    depends_on:
+      - west-us
+      - central-us

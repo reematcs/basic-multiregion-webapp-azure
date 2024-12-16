@@ -3,6 +3,9 @@ package main
 
 import (
 	"log"
+	"os"
+
+	"github.com/gin-gonic/gin"
 
 	"health-dashboard/backend/internal/config"
 	"health-dashboard/backend/internal/server"
@@ -11,6 +14,13 @@ import (
 )
 
 func main() {
+
+	// Add debugging support
+	if os.Getenv("DEBUG") == "true" {
+		gin.SetMode(gin.DebugMode)
+		// Add delve debugging port
+		log.Println("Debugger is enabled on port 2345")
+	}
 	// Load configuration from environment variables
 	cfg, err := config.LoadConfig()
 	if err != nil {

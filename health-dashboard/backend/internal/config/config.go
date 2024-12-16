@@ -12,6 +12,7 @@ type Config struct {
 	Region         string
 	Role           string
 	ProfileName    string
+	LocalMode      bool
 }
 
 func LoadConfig() (*Config, error) {
@@ -47,4 +48,12 @@ func LoadConfig() (*Config, error) {
 		Role:           role,
 		ProfileName:    profileName,
 	}, nil
+}
+
+func Load() (*Config, error) {
+	config := &Config{
+		LocalMode: os.Getenv("LOCAL_MODE") == "true",
+	}
+	// ... rest of your loading logic
+	return config, nil
 }

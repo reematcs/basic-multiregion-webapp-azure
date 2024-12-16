@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"health-dashboard/backend/internal/models"
+	"os"
 	"sync"
 	"time"
 
@@ -26,9 +27,22 @@ type HealthChecker struct {
 	profileName     string
 	failoverHistory []models.FailoverEvent
 	historyMutex    sync.RWMutex
+	localMode       bool
 }
 
 func NewHealthChecker(cred *azidentity.DefaultAzureCredential, subscriptionID, resourceGroup, region, role, profileName string) (*HealthChecker, error) {
+	if os.Getenv("LOCAL_MODE") == "true" {
+		return &HealthChecker{
+			subscriptionID:  subscriptionID,
+			resourceGroup:   resourceGroup,
+			region:          region,
+			role:            role,
+			profileName:     profileName,
+			localMode:       true,
+			failoverHistory: make([]models.FailoverEvent, 0),
+		}, nil
+	}
+
 	tmClient, err := armtrafficmanager.NewProfilesClient(subscriptionID, cred, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create traffic manager client: %v", err)
@@ -59,6 +73,30 @@ func NewHealthChecker(cred *azidentity.DefaultAzureCredential, subscriptionID, r
 }
 
 func (hc *HealthChecker) CheckHealth(ctx context.Context) (*models.HealthStatus, error) {
+	if hc.localMode {
+		// Simulate some latency
+		time.Sleep(100 * time.Millisecond)
+
+		// Mock different statuses based on role
+		status := "connected"
+		regionStatus := "healthy"
+
+		// Simulate occasional issues for testing
+		if time.Now().Unix()%10 == 0 {
+			status = "degraded"
+			regionStatus = "degraded"
+		}
+
+		return &models.HealthStatus{
+			TrafficManager:    status,
+			KeyVault:          status,
+			ContainerRegistry: status,
+			RegionStatus:      regionStatus,
+			Role:              hc.role,
+			LastChecked:       time.Now(),
+		}, nil
+	}
+
 	tmStatus := hc.checkTrafficManager(ctx)
 	kvStatus := hc.checkKeyVault(ctx)
 	acrStatus := hc.checkContainerRegistry(ctx)
@@ -82,6 +120,9 @@ func (hc *HealthChecker) CheckHealth(ctx context.Context) (*models.HealthStatus,
 }
 
 func (hc *HealthChecker) checkTrafficManager(ctx context.Context) string {
+	if hc.localMode {
+		return "connected"
+	}
 	_, err := hc.tmClient.Get(ctx, hc.resourceGroup, hc.profileName, nil)
 	if err != nil {
 		return "disconnected"
@@ -90,6 +131,9 @@ func (hc *HealthChecker) checkTrafficManager(ctx context.Context) string {
 }
 
 func (hc *HealthChecker) checkKeyVault(ctx context.Context) string {
+	if hc.localMode {
+		return "connected"
+	}
 	_, err := hc.kvClient.GetSecret(ctx, "test-secret", "", nil)
 	if err != nil {
 		return "disconnected"
@@ -98,6 +142,9 @@ func (hc *HealthChecker) checkKeyVault(ctx context.Context) string {
 }
 
 func (hc *HealthChecker) checkContainerRegistry(ctx context.Context) string {
+	if hc.localMode {
+		return "connected"
+	}
 	_, err := hc.acrClient.Get(ctx, hc.resourceGroup, "your-acr-name", nil)
 	if err != nil {
 		return "disconnected"
@@ -106,6 +153,22 @@ func (hc *HealthChecker) checkContainerRegistry(ctx context.Context) string {
 }
 
 func (hc *HealthChecker) TriggerFailover(ctx context.Context, targetRegion string) error {
+	if hc.localMode {
+		// Validate target region
+		if targetRegion == "" {
+			return fmt.Errorf("target region is required")
+		}
+
+		// Simulate network latency
+		time.Sleep(2 * time.Second)
+
+		// Record the failover event
+		fromRegion := hc.region
+		hc.recordFailoverEvent(fromRegion, targetRegion, "successful", "")
+
+		return nil
+	}
+
 	result, err := hc.tmClient.Get(ctx, hc.resourceGroup, hc.profileName, nil)
 	if err != nil {
 		return fmt.Errorf("failed to get traffic manager profile: %v", err)
@@ -159,6 +222,30 @@ func (hc *HealthChecker) recordFailoverEvent(fromRegion, toRegion, status, error
 }
 
 func (hc *HealthChecker) GetFailoverHistory(ctx context.Context) (*models.FailoverHistory, error) {
+	if hc.localMode {
+		mockEvents := []models.FailoverEvent{
+			{
+				Timestamp:    time.Now().Add(-24 * time.Hour),
+				FromRegion:   "West US",
+				ToRegion:     "Central US",
+				Status:       "successful",
+				ErrorMessage: "",
+			},
+			{
+				Timestamp:    time.Now().Add(-48 * time.Hour),
+				FromRegion:   "Central US",
+				ToRegion:     "West US",
+				Status:       "successful",
+				ErrorMessage: "",
+			},
+		}
+		return &models.FailoverHistory{
+			LastFailover:   mockEvents[0].Timestamp,
+			CurrentPrimary: mockEvents[0].ToRegion,
+			FailoverCount:  len(mockEvents),
+			Events:         mockEvents,
+		}, nil
+	}
 	hc.historyMutex.RLock()
 	defer hc.historyMutex.RUnlock()
 
