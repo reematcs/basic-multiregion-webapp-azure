@@ -7,7 +7,7 @@ services:
       - /app/node_modules
     ports:
       - "3000:3000"
-      - "9230:9229"  # Map container's 9229 to host's 9230
+      - "9230:9229" # Map container's 9229 to host's 9230
     environment:
       - NODE_ENV=development
       - PORT=3000
@@ -18,20 +18,21 @@ services:
     depends_on:
       - west-us
       - central-us
+
   west-us:
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      - REGION=westus  # From your deployment
-      - VNET=10.1.0.0/16  # From networking_primary VNet
+      - REGION=westus
+      - VNET=10.1.0.0/16
       - DEBUG=true
       # Azure credentials and config
-      - SUBSCRIPTION_ID=2ecfa960-1b3a-4817-b1e4-5c0fa4056cbe
+      - SUBSCRIPTION_ID=00000000-0000-0000-0000-000000000000
       - RESOURCE_GROUP=rg-dev-azure
       - APP_NAME=app-app-healthapp-westus-dev-31bb0r64
       - TM_PROFILE_NAME=tm-tm-healthapp-dev-jdm9m5hr
-      - TENANT_ID=674d3e6c-45f7-42e9-938c-fcd01e3ff57c
+      - TENANT_ID=00000000-0000-0000-0000-000000000000
       - ROLE=primary
       - PAIRED_APP_NAME=app-app-healthapp-centralus-dev-i5sugn88
       - PAIRED_REGION=centralus
@@ -42,20 +43,21 @@ services:
     volumes:
       - ./health-dashboard/backend:/app/backend:ro
       - ./health-dashboard/frontend/src:/app/frontend/src:ro
+
   central-us:
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      - REGION=centralus  # From your deployment
-      - VNET=10.2.0.0/16  # From networking_secondary VNet
+      - REGION=centralus
+      - VNET=10.2.0.0/16
       - DEBUG=true
       # Azure credentials and config
-      - SUBSCRIPTION_ID=2ecfa960-1b3a-4817-b1e4-5c0fa4056cbe
+      - SUBSCRIPTION_ID=00000000-0000-0000-0000-000000000000
       - RESOURCE_GROUP=rg-dev-azure
       - APP_NAME=app-app-healthapp-centralus-dev-i5sugn88
       - TM_PROFILE_NAME=tm-tm-healthapp-dev-jdm9m5hr
-      - TENANT_ID=674d3e6c-45f7-42e9-938c-fcd01e3ff57c
+      - TENANT_ID=00000000-0000-0000-0000-000000000000
       - ROLE=secondary
       - PAIRED_APP_NAME=app-app-healthapp-westus-dev-31bb0r64
       - PAIRED_REGION=westus
