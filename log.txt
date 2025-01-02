@@ -1,0 +1,605 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [central-us internal] load build definition from Dockerfile.backend.debug
+#1 transferring dockerfile: 584B done
+#1 DONE 0.0s
+
+#2 [west-us internal] load build definition from Dockerfile.backend.debug
+#2 transferring dockerfile: 584B 0.0s done
+#2 DONE 0.0s
+
+#3 [central-us internal] load metadata for docker.io/library/golang:1.23.4
+#3 DONE 0.6s
+
+#4 [west-us internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [central-us internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [central-us 1/4] FROM docker.io/library/golang:1.23.4@sha256:7ea4c9dcb2b97ff8ee80a67db3d44f98c8ffa0d191399197007d8459c1453041
+#6 resolve docker.io/library/golang:1.23.4@sha256:7ea4c9dcb2b97ff8ee80a67db3d44f98c8ffa0d191399197007d8459c1453041 0.0s done
+#6 DONE 0.0s
+
+#7 [central-us internal] load build context
+#7 transferring context: 1.54kB done
+#7 DONE 0.0s
+
+#8 [west-us internal] load build context
+#8 transferring context: 51.49kB 0.0s done
+#8 DONE 0.0s
+
+#9 [west-us 2/4] WORKDIR /app/backend
+#9 CACHED
+
+#10 [west-us 3/4] COPY ./health-dashboard/backend /app/backend
+#10 DONE 0.1s
+
+#11 [central-us 3/4] COPY ./health-dashboard/backend /app/backend
+#11 DONE 0.1s
+
+#12 [central-us 4/4] RUN go mod download &&     go install github.com/go-delve/delve/cmd/dlv@latest
+#12 ...
+
+#13 [west-us 4/4] RUN go mod download &&     go install github.com/go-delve/delve/cmd/dlv@latest
+#13 ...
+
+#12 [central-us 4/4] RUN go mod download &&     go install github.com/go-delve/delve/cmd/dlv@latest
+#12 22.34 go: downloading github.com/go-delve/delve v1.24.0
+#12 24.25 go: downloading github.com/sirupsen/logrus v1.9.3
+#12 24.25 go: downloading golang.org/x/telemetry v0.0.0-20241106142447-58a1122356f5
+#12 24.25 go: downloading github.com/spf13/cobra v1.7.0
+#12 24.53 go: downloading github.com/spf13/pflag v1.0.5
+#12 24.67 go: downloading github.com/hashicorp/golang-lru v1.0.2
+#12 24.69 go: downloading golang.org/x/arch v0.11.0
+#12 25.11 go: downloading github.com/cosiner/argv v0.1.0
+#12 25.11 go: downloading github.com/derekparker/trie v0.0.0-20230829180723-39f4de51ef7d
+#12 25.11 go: downloading github.com/go-delve/liner v1.2.3-0.20231231155935-4726ab1d7f62
+#12 25.14 go: downloading github.com/google/go-dap v0.12.0
+#12 25.36 go: downloading golang.org/x/sys v0.26.0
+#12 25.44 go: downloading golang.org/x/sync v0.8.0
+#12 25.45 go: downloading github.com/cpuguy83/go-md2man/v2 v2.0.2
+#12 25.46 go: downloading go.starlark.net v0.0.0-20231101134539-556fd59b42f6
+#12 26.17 go: downloading github.com/mattn/go-runewidth v0.0.13
+#12 26.27 go: downloading github.com/russross/blackfriday/v2 v2.1.0
+#12 26.37 go: downloading github.com/rivo/uniseg v0.2.0
+#12 ...
+
+#13 [west-us 4/4] RUN go mod download &&     go install github.com/go-delve/delve/cmd/dlv@latest
+#13 22.34 go: downloading github.com/go-delve/delve v1.24.0
+#13 26.93 go: downloading github.com/sirupsen/logrus v1.9.3
+#13 26.93 go: downloading github.com/spf13/cobra v1.7.0
+#13 26.93 go: downloading golang.org/x/telemetry v0.0.0-20241106142447-58a1122356f5
+#13 27.01 go: downloading github.com/spf13/pflag v1.0.5
+#13 27.08 go: downloading github.com/hashicorp/golang-lru v1.0.2
+#13 27.10 go: downloading golang.org/x/arch v0.11.0
+#13 27.53 go: downloading github.com/cosiner/argv v0.1.0
+#13 27.54 go: downloading github.com/derekparker/trie v0.0.0-20230829180723-39f4de51ef7d
+#13 27.56 go: downloading github.com/go-delve/liner v1.2.3-0.20231231155935-4726ab1d7f62
+#13 27.75 go: downloading github.com/google/go-dap v0.12.0
+#13 27.95 go: downloading golang.org/x/sys v0.26.0
+#13 28.12 go: downloading github.com/cpuguy83/go-md2man/v2 v2.0.2
+#13 28.13 go: downloading go.starlark.net v0.0.0-20231101134539-556fd59b42f6
+#13 28.35 go: downloading github.com/mattn/go-runewidth v0.0.13
+#13 28.35 go: downloading golang.org/x/sync v0.8.0
+#13 28.47 go: downloading github.com/russross/blackfriday/v2 v2.1.0
+#13 28.52 go: downloading github.com/rivo/uniseg v0.2.0
+#13 ...
+
+#12 [central-us 4/4] RUN go mod download &&     go install github.com/go-delve/delve/cmd/dlv@latest
+#12 DONE 79.2s
+
+#14 [central-us] exporting to image
+#14 exporting layers
+#14 ...
+
+#13 [west-us 4/4] RUN go mod download &&     go install github.com/go-delve/delve/cmd/dlv@latest
+#13 DONE 79.6s
+
+#15 [west-us] exporting to image
+#15 ...
+
+#14 [central-us] exporting to image
+#14 exporting layers 36.2s done
+#14 exporting manifest sha256:6de5a2c3a28b8b703770e13b87c99ad34310a9dc3dee910ce90ba3c504ec71c4 0.0s done
+#14 exporting config sha256:93f997f4c396cc1b8e342e705d70db7b0b28e1b4022ef4e901059a4b962a2fa4 0.0s done
+#14 exporting attestation manifest sha256:944503b2b6c2a54114cd1c9cc6df282f4f25f10d433edcb3ab7bcacef4057d34 0.0s done
+#14 exporting manifest list sha256:993abdb12e1d40c6945b10f8c3c1ba1c49fad0b54abf5b0f049fa08d99143264
+#14 exporting manifest list sha256:993abdb12e1d40c6945b10f8c3c1ba1c49fad0b54abf5b0f049fa08d99143264 0.1s done
+#14 naming to docker.io/library/basic-multiregion-webapp-azure-central-us:latest done
+#14 unpacking to docker.io/library/basic-multiregion-webapp-azure-central-us:latest
+#14 ...
+
+#15 [west-us] exporting to image
+#15 exporting layers 35.9s done
+#15 exporting manifest sha256:8c93401c5e5d128989998f3f7c1cddc47d07305ec5fcbe907eb064e003c3e4ef 0.0s done
+#15 exporting config sha256:f095836edf08eeb805ce220b290fd2b7c26eaf7c5b44e6fcfcf4ed947b80d486 0.0s done
+#15 exporting attestation manifest sha256:7ce44c1e528943afbfa7adc638e4dd0d433a33303cb582b11c1f1551735b49a1 0.0s done
+#15 exporting manifest list sha256:bffd6adfe760d82e7400368c3bf7705c0e4acb0586d89dad6a0715ff2b058666 0.0s done
+#15 naming to docker.io/library/basic-multiregion-webapp-azure-west-us:latest done
+#15 unpacking to docker.io/library/basic-multiregion-webapp-azure-west-us:latest
+#15 ...
+
+#14 [central-us] exporting to image
+#14 unpacking to docker.io/library/basic-multiregion-webapp-azure-central-us:latest 11.7s done
+#14 DONE 48.1s
+
+#15 [west-us] exporting to image
+#15 unpacking to docker.io/library/basic-multiregion-webapp-azure-west-us:latest 11.5s done
+#15 DONE 47.6s
+
+#16 [central-us] resolving provenance for metadata file
+#16 DONE 0.1s
+
+#17 [west-us] resolving provenance for metadata file
+#17 DONE 0.1s
+
+#18 [traffic-manager internal] load build definition from Dockerfile.debug
+#18 transferring dockerfile: 269B done
+#18 DONE 0.0s
+
+#3 [traffic-manager internal] load metadata for docker.io/library/golang:1.23.4
+#3 DONE 1.2s
+
+#19 [traffic-manager internal] load .dockerignore
+#19 transferring context: 2B done
+#19 DONE 0.0s
+
+#6 [traffic-manager 1/6] FROM docker.io/library/golang:1.23.4@sha256:7ea4c9dcb2b97ff8ee80a67db3d44f98c8ffa0d191399197007d8459c1453041
+#6 resolve docker.io/library/golang:1.23.4@sha256:7ea4c9dcb2b97ff8ee80a67db3d44f98c8ffa0d191399197007d8459c1453041 0.0s done
+#6 DONE 0.0s
+
+#20 [traffic-manager internal] load build context
+#20 transferring context: 1.46kB done
+#20 DONE 0.0s
+
+#21 [traffic-manager 4/6] RUN go mod download
+#21 CACHED
+
+#22 [traffic-manager 2/6] WORKDIR /app
+#22 CACHED
+
+#23 [traffic-manager 5/6] COPY ./debug/cmd/simulator ./cmd/simulator
+#23 CACHED
+
+#24 [traffic-manager 3/6] COPY ./debug/go.mod ./
+#24 CACHED
+
+#25 [traffic-manager 6/6] RUN CGO_ENABLED=0 GOOS=linux go build -o traffic-simulator ./cmd/simulator
+#25 CACHED
+
+#26 [traffic-manager] exporting to image
+#26 exporting layers done
+#26 exporting manifest sha256:8882eff6810fef3f891776252e995e3a392d65f5ea05f9beb295a85731926de7 done
+#26 exporting config sha256:d8b3bebe8a04d7fb80cabbca6aa18a870fdb1528b2e2087570b3c122eb21a593 done
+#26 exporting attestation manifest sha256:0e713885ff2afcd5066167275b06ff5adb591e5709a2d9f1689be02e900ac02c 0.0s done
+#26 exporting manifest list sha256:36219ea78faaeec3f3fad605a75f265978a961ec18cbfd61140d18a3274e9b17 done
+#26 naming to docker.io/library/basic-multiregion-webapp-azure-traffic-manager:latest done
+#26 unpacking to docker.io/library/basic-multiregion-webapp-azure-traffic-manager:latest 0.0s done
+#26 DONE 0.1s
+
+#27 [traffic-manager] resolving provenance for metadata file
+#27 DONE 0.0s
+Attaching to central-us-1, frontend-dev-1, traffic-manager-1, west-us-1
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m w3c-hr-time@1.0.2: Use your platform's native performance.now() and performance.timeOrigin.
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m stable@0.1.8: Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m q@1.5.1: You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m glob@7.2.3: Glob versions prior to v9 are no longer supported
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m domexception@2.0.1: Use your platform's native DOMException instead
+west-us-1          | API server listening at: [::]:2345
+central-us-1       | API server listening at: [::]:2345
+west-us-1          | [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+west-us-1          | 
+west-us-1          | [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+west-us-1          |  - using env:	export GIN_MODE=release
+west-us-1          |  - using code:	gin.SetMode(gin.ReleaseMode)
+west-us-1          | 
+west-us-1          | [GIN-debug] GET    /api/system               --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleSystemInfo-fm (4 handlers)
+west-us-1          | [GIN-debug] GET    /api/health/status        --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleHealthStatus-fm (4 handlers)
+west-us-1          | [GIN-debug] GET    /api/health/live          --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleLiveCheck-fm (4 handlers)
+west-us-1          | [GIN-debug] GET    /api/metrics              --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleMetrics-fm (4 handlers)
+west-us-1          | [GIN-debug] POST   /api/failover/trigger     --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleFailoverTrigger-fm (4 handlers)
+west-us-1          | [GIN-debug] GET    /api/failover/history     --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleFailoverHistory-fm (4 handlers)
+west-us-1          | [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+west-us-1          | Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+west-us-1          | [GIN-debug] Listening and serving HTTP on :8080
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+central-us-1       | [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+central-us-1       | 
+central-us-1       | [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+central-us-1       |  - using env:	export GIN_MODE=release
+central-us-1       |  - using code:	gin.SetMode(gin.ReleaseMode)
+central-us-1       | 
+central-us-1       | [GIN-debug] GET    /api/system               --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleSystemInfo-fm (4 handlers)
+central-us-1       | [GIN-debug] GET    /api/health/status        --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleHealthStatus-fm (4 handlers)
+central-us-1       | [GIN-debug] GET    /api/health/live          --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleLiveCheck-fm (4 handlers)
+central-us-1       | [GIN-debug] GET    /api/metrics              --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleMetrics-fm (4 handlers)
+central-us-1       | [GIN-debug] POST   /api/failover/trigger     --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleFailoverTrigger-fm (4 handlers)
+central-us-1       | [GIN-debug] GET    /api/failover/history     --> health-dashboard/backend/internal/handlers.(*HealthHandler).HandleFailoverHistory-fm (4 handlers)
+central-us-1       | [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+central-us-1       | Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+central-us-1       | [GIN-debug] Listening and serving HTTP on :8080
+west-us-1          | [GIN] 2024/12/30 - 04:25:49 | 200 |   13.998416ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:25:49 | 200 |   14.763958ms |      172.19.0.4 | GET      "/api/health/live"
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m svgo@1.3.2: This SVGO version is no longer supported. Upgrade to v2.x.x.
+west-us-1          | [GIN] 2024/12/30 - 04:25:54 | 200 |     442.958µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:25:54 | 200 |    1.178959ms |      172.19.0.4 | GET      "/api/health/live"
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m @babel/plugin-proposal-private-property-in-object@7.21.11: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-property-in-object instead.
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m @babel/plugin-proposal-private-methods@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-methods instead.
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m @babel/plugin-proposal-nullish-coalescing-operator@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-nullish-coalescing-operator instead.
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m @babel/plugin-proposal-optional-chaining@7.21.0: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m @babel/plugin-proposal-numeric-separator@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-numeric-separator instead.
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m @babel/plugin-proposal-class-properties@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-class-properties instead.
+west-us-1          | [GIN] 2024/12/30 - 04:25:59 | 200 |    1.377959ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:25:59 | 200 |     256.667µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:26:04 | 200 |    1.269792ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:04 | 200 |      295.75µs |      172.19.0.4 | GET      "/api/health/live"
+frontend-dev-1     | [1mnpm[22m [33mwarn[39m [94mdeprecated[39m eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+west-us-1          | [GIN] 2024/12/30 - 04:26:09 | 200 |     379.916µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:09 | 200 |     391.333µs |      172.19.0.4 | GET      "/api/health/live"
+frontend-dev-1     | 
+frontend-dev-1     | added 1524 packages, and audited 1525 packages in 2m
+frontend-dev-1     | 
+frontend-dev-1     | 271 packages are looking for funding
+frontend-dev-1     |   run `npm fund` for details
+frontend-dev-1     | 
+frontend-dev-1     | [31m[1m8[22m[39m vulnerabilities (2 [33m[1mmoderate[22m[39m, 6 [31m[1mhigh[22m[39m)
+frontend-dev-1     | 
+frontend-dev-1     | To address all issues (including breaking changes), run:
+frontend-dev-1     |   npm audit fix --force
+frontend-dev-1     | 
+frontend-dev-1     | Run `npm audit` for details.
+central-us-1       | [GIN] 2024/12/30 - 04:26:14 | 200 |     298.125µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:26:14 | 200 |     476.541µs |      172.19.0.4 | GET      "/api/health/live"
+frontend-dev-1     | 
+frontend-dev-1     | > health-dashboard-frontend@0.1.0 start:debug
+frontend-dev-1     | > NODE_OPTIONS='--inspect=0.0.0.0:9229' react-scripts start
+frontend-dev-1     | 
+frontend-dev-1     | Debugger listening on ws://0.0.0.0:9229/02c2220e-20ca-4cad-b299-c3be42fd9f14
+frontend-dev-1     | For help, see: https://nodejs.org/en/docs/inspector
+frontend-dev-1     | Starting inspector on 0.0.0.0:9229 failed: address already in use
+frontend-dev-1     | (node:55) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+frontend-dev-1     | (Use `node --trace-deprecation ...` to show where the warning was created)
+frontend-dev-1     | (node:55) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+frontend-dev-1     | [2J[3J[HStarting the development server...
+frontend-dev-1     | 
+west-us-1          | [GIN] 2024/12/30 - 04:26:19 | 200 |     229.125µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:19 | 200 |     250.459µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:26:24 | 200 |     610.917µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:24 | 200 |     247.042µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:26:29 | 200 |      75.667µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:29 | 200 |      73.583µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:26:34 | 200 |      85.833µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:34 | 200 |          67µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:26:39 | 200 |     414.334µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:39 | 200 |     146.292µs |      172.19.0.4 | GET      "/api/health/live"
+frontend-dev-1     | [2J[3J[HCompiled successfully!
+frontend-dev-1     | 
+frontend-dev-1     | You can now view health-dashboard-frontend in the browser.
+frontend-dev-1     | 
+frontend-dev-1     |   Local:            http://localhost:3000
+frontend-dev-1     |   On Your Network:  http://172.19.0.5:3000
+frontend-dev-1     | 
+frontend-dev-1     | Note that the development build is not optimized.
+frontend-dev-1     | To create a production build, use npm run build.
+frontend-dev-1     | 
+frontend-dev-1     | webpack compiled [1m[32msuccessfully[39m[22m
+west-us-1          | [GIN] 2024/12/30 - 04:26:44 | 200 |      392.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:44 | 200 |     254.333µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:49 | 200 |      82.583µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:26:49 | 200 |     134.834µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:26:55 | 200 |     41.3425ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:26:55 | 200 |      366.75µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:00 | 200 |     296.625µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:00 | 200 |     435.375µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:05 | 200 |    1.201541ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:05 | 200 |     293.458µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:10 | 200 |     272.417µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:10 | 200 |     510.917µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:15 | 200 |      76.916µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:15 | 200 |     308.375µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:20 | 200 |      13.333µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:20 | 200 |      20.334µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:25 | 200 |    1.208875ms |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:25 | 200 |      790.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:31 | 200 |    6.280708ms |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:31 | 200 |      511.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:36 | 200 |     494.083µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:36 | 200 |     704.542µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:41 | 200 |     346.792µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:41 | 200 |     262.083µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:46 | 200 |      79.958µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:46 | 200 |      77.541µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:51 | 200 |       44.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:51 | 200 |     237.875µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:27:56 | 200 |     111.833µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:27:56 | 200 |     116.167µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:01 | 200 |     149.792µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:01 | 200 |     164.584µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:06 | 200 |       76.75µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:06 | 200 |      68.334µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:11 | 200 |     152.917µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:11 | 200 |     138.916µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:16 | 200 |      231.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:16 | 200 |     839.833µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:21 | 200 |     188.666µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:21 | 200 |     148.958µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:26 | 200 |        13.5µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:26 | 200 |      24.292µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:31 | 200 |     297.958µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:31 | 200 |     353.458µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:36 | 200 |     152.791µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:36 | 200 |     234.875µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:41 | 200 |      64.125µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:41 | 200 |      69.083µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:46 | 200 |     154.875µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:46 | 200 |     158.584µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:51 | 200 |     332.583µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:51 | 200 |     271.667µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:28:56 | 200 |    1.452334ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:28:56 | 200 |    1.983542ms |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:01 | 200 |     171.875µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:01 | 200 |     197.042µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:06 | 200 |     332.917µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:06 | 200 |     198.333µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:11 | 200 |     466.541µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:11 | 200 |     176.959µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:16 | 200 |     164.791µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:16 | 200 |     198.875µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:21 | 200 |      15.542µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:21 | 200 |       27.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:26 | 200 |     148.125µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:26 | 200 |     188.959µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:32 | 200 |     236.916µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:32 | 200 |     321.042µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:37 | 200 |     281.833µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:37 | 200 |     221.084µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:42 | 200 |      63.333µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:42 | 200 |      315.75µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:47 | 200 |      42.041µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:47 | 200 |      16.208µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:52 | 200 |     194.083µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:52 | 200 |    2.157458ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:29:57 | 200 |      16.166µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:29:57 | 200 |      32.209µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:02 | 200 |      14.416µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:02 | 200 |      38.416µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:07 | 200 |     209.709µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:07 | 200 |     249.542µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:12 | 200 |      22.459µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:12 | 200 |       14.75µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:17 | 200 |      60.792µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:17 | 200 |      70.416µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:22 | 200 |      15.084µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:22 | 200 |      22.666µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:27 | 200 |      82.542µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:27 | 200 |      65.666µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:32 | 200 |      30.625µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:32 | 200 |      18.333µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:37 | 200 |     177.875µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:37 | 200 |     178.084µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:42 | 200 |      16.834µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:42 | 200 |      33.166µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:47 | 200 |     182.584µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:47 | 200 |     286.667µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:52 | 200 |     179.666µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:52 | 200 |     253.667µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:30:57 | 200 |     187.583µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:30:57 | 200 |     211.083µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:02 | 200 |      22.833µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:02 | 200 |      15.667µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:07 | 200 |     442.041µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:07 | 200 |     201.166µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:12 | 200 |     186.291µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:12 | 200 |      261.25µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:17 | 200 |      20.666µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:17 | 200 |       8.792µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:22 | 200 |     178.583µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:22 | 200 |     225.541µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:27 | 200 |      24.083µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:27 | 200 |       24.25µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:32 | 200 |      171.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:32 | 200 |     516.458µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:37 | 200 |      13.708µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:37 | 200 |       9.792µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:42 | 200 |      70.917µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:42 | 200 |      70.375µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:47 | 200 |      21.792µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:47 | 200 |      12.875µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:52 | 200 |      41.708µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:52 | 200 |      21.666µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:31:57 | 200 |     170.291µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:31:57 | 200 |     386.417µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:02 | 200 |     153.416µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:02 | 200 |     146.917µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:07 | 200 |      13.625µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:07 | 200 |        22.5µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:12 | 200 |       30.75µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:12 | 200 |      21.458µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:17 | 200 |       81.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:17 | 200 |       73.75µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:22 | 200 |      19.166µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:22 | 200 |      23.125µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:27 | 200 |    1.041417ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:27 | 200 |     181.708µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:32 | 200 |      14.666µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:32 | 200 |      19.958µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:37 | 200 |     164.708µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:37 | 200 |     152.167µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:42 | 200 |      89.708µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:42 | 200 |       73.75µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:47 | 200 |      21.958µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:47 | 200 |      29.292µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:52 | 200 |     189.125µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:52 | 200 |     117.375µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:32:57 | 200 |      45.208µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:32:57 | 200 |      28.084µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:02 | 200 |      79.625µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:02 | 200 |      78.125µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:07 | 200 |      27.541µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:07 | 200 |      22.208µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:12 | 200 |    1.106583ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:12 | 200 |     185.958µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:17 | 200 |      18.084µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:17 | 200 |     411.209µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:22 | 200 |      69.291µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:22 | 200 |      77.459µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:27 | 200 |      67.083µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:27 | 200 |      33.167µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:32 | 200 |      20.292µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:32 | 200 |      19.625µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:38 | 200 |      32.583µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:38 | 200 |      14.291µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:43 | 200 |      18.417µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:43 | 200 |      18.042µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:48 | 200 |       57.75µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:48 | 200 |      80.084µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:53 | 200 |      33.208µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:53 | 200 |     582.125µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:33:58 | 200 |      22.583µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:33:58 | 200 |       16.25µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:03 | 200 |      13.541µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:03 | 200 |      15.625µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:08 | 200 |      13.042µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:08 | 200 |      17.417µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:13 | 200 |     175.917µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:13 | 200 |         126µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:18 | 200 |       18.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:18 | 200 |      38.875µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:23 | 200 |     205.917µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:23 | 200 |     181.125µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:28 | 200 |      55.084µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:28 | 200 |      19.125µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:33 | 200 |       9.416µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:33 | 200 |      10.083µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:38 | 200 |       59.75µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:38 | 200 |      61.167µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:43 | 200 |      15.834µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:43 | 200 |          16µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:48 | 200 |      28.833µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:48 | 200 |      16.792µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:53 | 200 |      50.083µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:53 | 200 |      10.125µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:34:58 | 200 |       203.5µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:34:58 | 200 |     482.583µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:03 | 200 |      506.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:03 | 200 |     391.417µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:08 | 200 |      12.875µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:08 | 200 |      22.667µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:13 | 200 |     224.166µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:13 | 200 |     210.125µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:18 | 200 |     117.041µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:18 | 200 |      14.375µs |      172.19.0.4 | GET      "/api/health/live"
+frontend-dev-1     | [2J[3J[HCompiling...
+west-us-1          | [GIN] 2024/12/30 - 04:35:23 | 200 |      231.25µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:23 | 200 |     173.625µs |      172.19.0.4 | GET      "/api/health/live"
+frontend-dev-1     | [2J[3J[HCompiled successfully!
+frontend-dev-1     | 
+frontend-dev-1     | You can now view health-dashboard-frontend in the browser.
+frontend-dev-1     | 
+frontend-dev-1     |   Local:            http://localhost:3000
+frontend-dev-1     |   On Your Network:  http://172.19.0.5:3000
+frontend-dev-1     | 
+frontend-dev-1     | Note that the development build is not optimized.
+frontend-dev-1     | To create a production build, use npm run build.
+frontend-dev-1     | 
+frontend-dev-1     | webpack compiled [1m[32msuccessfully[39m[22m
+west-us-1          | [GIN] 2024/12/30 - 04:35:28 | 200 |      92.458µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:28 | 200 |       90.25µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:33 | 200 |      41.375µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:33 | 200 |      52.958µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:38 | 200 |     170.375µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:38 | 200 |     134.292µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:43 | 200 |      21.792µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:43 | 200 |      19.292µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:48 | 200 |      12.834µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:48 | 200 |      15.125µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:53 | 200 |      78.875µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:53 | 200 |      89.416µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:35:58 | 200 |     245.167µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:35:58 | 200 |     186.583µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:03 | 200 |      30.167µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:03 | 200 |      25.167µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:08 | 200 |      13.917µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:08 | 200 |      17.917µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:13 | 200 |     190.917µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:13 | 200 |      235.25µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:18 | 200 |      17.917µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:18 | 200 |      19.709µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:23 | 200 |     498.541µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:23 | 200 |       325.5µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:28 | 200 |     299.083µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:28 | 200 |      429.75µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:33 | 200 |     637.666µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:33 | 200 |    4.550125ms |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:38 | 200 |    2.134333ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:38 | 200 |     646.125µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:43 | 200 |       16.75µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:43 | 200 |      12.333µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:48 | 200 |       139.5µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:48 | 200 |     159.458µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:53 | 200 |          92µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:53 | 200 |      18.417µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:36:58 | 200 |      59.334µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:36:58 | 200 |          71µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:03 | 200 |       15.75µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:03 | 200 |      15.542µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:08 | 200 |     149.541µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:08 | 200 |     200.042µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:13 | 200 |     208.541µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:13 | 200 |     236.583µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:18 | 200 |       142.5µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:19 | 200 |      83.875µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:24 | 200 |    1.012583ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:24 | 200 |     515.083µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:29 | 200 |      17.583µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:29 | 200 |      19.917µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:34 | 200 |     155.666µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:34 | 200 |         174µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:39 | 200 |      97.667µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:39 | 200 |     216.792µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:44 | 200 |      76.166µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:44 | 200 |      85.041µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:49 | 200 |      81.541µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:49 | 200 |      81.709µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:54 | 200 |      76.041µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:54 | 200 |     111.084µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:37:59 | 200 |    1.305583ms |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:37:59 | 200 |     431.083µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:04 | 200 |      85.666µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:04 | 200 |      77.834µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:09 | 200 |      19.625µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:09 | 200 |      17.916µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:14 | 200 |      80.916µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:14 | 200 |      62.375µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:19 | 200 |     109.917µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:19 | 200 |     185.583µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:24 | 200 |      19.083µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:24 | 200 |      23.709µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:29 | 200 |      88.125µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:29 | 200 |      64.875µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:34 | 200 |      12.708µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:34 | 200 |      12.791µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:39 | 200 |          17µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:39 | 200 |      15.167µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:44 | 200 |      59.459µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:44 | 200 |          90µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:49 | 200 |      80.459µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:49 | 200 |      70.334µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:54 | 200 |     193.041µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:54 | 200 |     266.542µs |      172.19.0.4 | GET      "/api/health/live"
+west-us-1          | [GIN] 2024/12/30 - 04:38:59 | 200 |      19.042µs |      172.19.0.4 | GET      "/api/health/live"
+central-us-1       | [GIN] 2024/12/30 - 04:38:59 | 200 |      24.625µs |      172.19.0.4 | GET      "/api/health/live"
+[Ktraffic-manager-1 exited with code 2

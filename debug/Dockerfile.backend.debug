@@ -1,0 +1,18 @@
+FROM golang:1.23.4
+
+WORKDIR /app/backend
+COPY ./health-dashboard/backend /app/backend
+
+# Install dependencies
+RUN go mod download && \
+    go install github.com/go-delve/delve/cmd/dlv@latest
+
+# Expose both the application and debugger ports
+EXPOSE 8080 2345
+
+# Set environment variables
+ENV CGO_ENABLED=0
+ENV LOCAL_MODE=true
+
+# Start delve in debug mode with --continue flag to start the application
+CMD ["dlv", "debug", "--headless", "--listen=:2345", "--api-version=2", "--accept-multiclient", "--continue", "--log", "./main.go"]

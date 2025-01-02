@@ -3,65 +3,83 @@ package server
 import (
 	"fmt"
 	"log"
-
-	"health-dashboard/backend/internal/handlers"
-	"health-dashboard/backend/internal/services"
+	"time"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+
+	"health-dashboard/backend/internal/config"
+	"health-dashboard/backend/internal/handlers"
+	"health-dashboard/backend/internal/services"
 )
 
 type Server struct {
-	cred             *azidentity.DefaultAzureCredential
-	healthChecker    *services.HealthChecker
-	metricsCollector *services.MetricsCollector
+	config        *config.Config
+	healthHandler *handlers.HealthHandler
 }
 
-func NewServer(cred *azidentity.DefaultAzureCredential, subscriptionID, resourceGroup, region, role, profileName string) (*Server, error) {
-	healthChecker, err := services.NewHealthChecker(cred, subscriptionID, resourceGroup, region, role, profileName)
+func NewServer(cfg *config.Config) (*Server, error) {
+	// Initialize Azure credentials
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create Azure credentials: %v", err)
+	}
+
+	// Initialize services
+	healthChecker, err := services.NewHealthChecker(
+		cred,
+		cfg.SubscriptionID,
+		cfg.ResourceGroup,
+		cfg.Region,
+		cfg.Role,
+		cfg.ProfileName,
+	)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create health checker: %v", err)
 	}
 
 	metricsCollector := services.NewMetricsCollector()
 
+	// Initialize handlers
+	healthHandler := handlers.NewHealthHandler(healthChecker, metricsCollector)
+
 	return &Server{
-		cred:             cred,
-		healthChecker:    healthChecker,
-		metricsCollector: metricsCollector,
+		config:        cfg,
+		healthHandler: healthHandler,
 	}, nil
 }
 
-func (s *Server) setupRoutes() (*gin.Engine, error) {
+func (s *Server) Start() error {
+	log.Printf("Initializing server...")
+
+	// Switch to debug mode for development
+	gin.SetMode(gin.DebugMode)
+
 	r := gin.Default()
 
-	healthHandler := handlers.NewHealthHandler(s.healthChecker, s.metricsCollector)
+	// Enable CORS
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
+	log.Printf("Setting up routes...")
+	// API routes group
 	api := r.Group("/api")
 	{
-		api.GET("/system", healthHandler.HandleSystemInfo)
-		api.GET("/health/status", healthHandler.HandleHealthStatus)
-		api.GET("/health/live", healthHandler.HandleLiveCheck)
-		api.POST("/failover/trigger", healthHandler.HandleFailoverTrigger)
-		api.GET("/failover/history", healthHandler.HandleFailoverHistory)
+		api.GET("/system", s.healthHandler.HandleSystemInfo)
+		api.GET("/health/status", s.healthHandler.HandleHealthStatus)
+		api.GET("/health/live", s.healthHandler.HandleLiveCheck)
+		api.GET("/metrics", s.healthHandler.HandleMetrics)
+		api.POST("/failover/trigger", s.healthHandler.HandleFailoverTrigger)
+		api.GET("/failover/history", s.healthHandler.HandleFailoverHistory)
 	}
 
-	// Serve static files from the /static directory
-	r.Static("/static", "/static")
-	r.StaticFile("/", "/static/index.html")
-	r.NoRoute(func(c *gin.Context) {
-		c.File("/static/index.html")
-	})
-
-	return r, nil
-}
-
-func (s *Server) Run(addr string) error {
-	r, err := s.setupRoutes()
-	if err != nil {
-		return fmt.Errorf("failed to setup routes: %v", err)
-	}
-
-	log.Printf("Server is running on %s", addr)
-	return r.Run(addr)
+	log.Printf("Server initialization complete, starting to listen on port %s", s.config.Port)
+	return r.Run(":" + s.config.Port)
 }

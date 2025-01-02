@@ -1,60 +1,139 @@
 {
   "version": "0.2.0",
   "configurations": [
-   {
-     "name": "Debug Frontend React",
-     "type": "pwa-chrome",
-     "request": "launch",
-     "url": "http://localhost:3000",
-     "webRoot": "${workspaceFolder}/health-dashboard/frontend",
-     "sourceMapPathOverrides": {
-       "/app/*": "${workspaceFolder}/health-dashboard/frontend/*"
-     }
-   },
-   {
-     "name": "Debug Frontend Node",
-     "type": "node",
-     "request": "attach",
-     "port": 9230,  // Updated to match the new port mapping
-     "address": "localhost",
-     "localRoot": "${workspaceFolder}/health-dashboard/frontend",
-     "remoteRoot": "/app",
-     "restart": true,
-     "skipFiles": [
-       "<node_internals>/**",
-       "**/node_modules/**"
-     ]
-   },
-   {
-     "name": "Debug West US",
-     "type": "go",
-     "request": "attach",
-     "mode": "remote",
-     "remotePath": "/app",
-     "port": 2345,
-     "host": "127.0.0.1",
-     "showLog": true
-   },
-   {
-     "name": "Debug Central US",
-     "type": "go",
-     "request": "attach",
-     "mode": "remote",
-     "remotePath": "/app",
-     "port": 2345,
-     "host": "127.0.0.1",
-     "showLog": true
-   }
- ],
- "compounds": [
-   {
-     "name": "Full Stack Debug",
-     "configurations": [
-       "Debug Frontend React", 
-       "Debug Frontend Node",
-       "Debug West US",
-       "Debug Central US"
-     ]
-   }
- ]
+    {
+      "name": "Debug Frontend (React)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/health-dashboard/frontend",
+      "sourceMapPathOverrides": {
+        "/app/*": "${workspaceFolder}/health-dashboard/frontend/*"
+      },
+      "sourceMaps": true,
+      "trace": true,
+      "userDataDir": false
+    },
+    {
+      "name": "Debug Frontend (Node)",
+      "type": "node",
+      "request": "attach",
+      "port": 9230,
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}/health-dashboard/frontend",
+      "remoteRoot": "/app",
+      "restart": true,
+      "sourceMaps": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**"
+      ]
+    },
+    {
+      "name": "Debug West US Backend",
+      "type": "go",
+      "request": "attach",
+      "mode": "remote",
+      "remotePath": "/app/backend",
+      "port": 2345,
+      "host": "localhost",
+      "showLog": true,
+      "trace": "verbose"
+    },
+    {
+      "name": "Debug Central US Backend",
+      "type": "go",
+      "request": "attach",
+      "mode": "remote",
+      "remotePath": "/app/backend",
+      "port": 2346,
+      "host": "localhost",
+      "showLog": true,
+      "trace": "verbose"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full Stack Debug",
+      "configurations": [
+        "Debug Frontend (React)",
+        "Debug Frontend (Node)",
+        "Debug West US Backend",
+        "Debug Central US Backend"
+      ],
+      "preLaunchTask": "docker-compose-debug",
+      "stopAll": true
+    }
+  ]
 }
+
+// {
+//   "version": "0.2.0",
+//   "configurations": [
+//     {
+//       "name": "Debug Frontend React",
+//       "type": "chrome",
+//       "request": "launch",
+//       "runtimeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+//       "url": "http://localhost:3000",
+//       "webRoot": "${workspaceFolder}/health-dashboard/frontend",
+//       "sourceMapPathOverrides": {
+//         "/app/*": "${workspaceFolder}/health-dashboard/frontend/*"
+//       },
+//       "sourceMaps": true,
+//       "userDataDir": true,  // Changed to true
+//       "runtimeArgs": [
+//         "--remote-debugging-port=9222",
+//         "--no-first-run",
+//         "--no-default-browser-check"
+//       ]
+//     },
+//    {
+//      "name": "Debug Frontend Node",
+//      "type": "node",
+//      "request": "attach",
+//      "port": 9230,  // Updated to match the new port mapping
+//      "address": "localhost",
+//      "localRoot": "${workspaceFolder}/health-dashboard/frontend",
+//      "remoteRoot": "/app",
+//      "restart": true,
+//      "skipFiles": [
+//        "<node_internals>/**",
+//        "**/node_modules/**"
+//      ]
+//    },
+//    {
+//      "name": "Debug West US",
+//       "type": "go",
+//       "request": "attach",
+//       "mode": "remote",
+//       "remotePath": "${workspaceFolder}/health-dashboard/backend",
+//       "port": 2345,
+//       "host": "127.0.0.1",
+//       "showLog": true,
+//       "preLaunchTask": "start-delve"
+//    },
+//    {
+//      "name": "Debug Central US",
+//      "type": "go",
+//       "request": "attach",
+//       "mode": "remote",
+//       "remotePath": "${workspaceFolder}/health-dashboard/backend",
+//       "port": 2345,
+//       "host": "127.0.0.1",
+//       "showLog": true,
+//       "preLaunchTask": "start-delve"
+//    }
+//  ],
+//  "compounds": [
+//    {
+//      "name": "Full Stack Debug",
+//      "configurations": [
+//        "Debug Frontend React", 
+//        "Debug Frontend Node",
+//        "Debug West US",
+//        "Debug Central US"
+//      ]
+//    }
+//  ]
+// }

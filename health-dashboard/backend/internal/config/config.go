@@ -1,4 +1,3 @@
-// internal/config/config.go
 package config
 
 import (
@@ -13,6 +12,7 @@ type Config struct {
 	Role           string
 	ProfileName    string
 	LocalMode      bool
+	Port           string // Added Port field
 }
 
 func LoadConfig() (*Config, error) {
@@ -41,15 +41,24 @@ func LoadConfig() (*Config, error) {
 		return nil, fmt.Errorf("TM_PROFILE_NAME environment variable is not set")
 	}
 
+	// Get port from environment or use default
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port
+	}
+
 	return &Config{
 		SubscriptionID: subscriptionID,
 		ResourceGroup:  resourceGroup,
 		Region:         region,
 		Role:           role,
 		ProfileName:    profileName,
+		LocalMode:      os.Getenv("LOCAL_MODE") == "true",
+		Port:           port,
 	}, nil
 }
 
+// Load is kept for backward compatibility if needed
 func Load() (*Config, error) {
 	config := &Config{
 		LocalMode: os.Getenv("LOCAL_MODE") == "true",

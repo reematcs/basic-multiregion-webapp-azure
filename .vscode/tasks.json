@@ -1,0 +1,56 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "docker-compose-debug",
+      "type": "shell",
+      "command": "docker-compose up --build",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^",
+          "file": 1,
+          "line": 1,
+          "column": 1,
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Starting development server",
+          "endsPattern": "^.*Compiled successfully"
+        }
+      }
+    },
+    {
+      "label": "start-delve",
+      "type": "shell",
+      "command": "source ~/.zshrc && cd ${workspaceFolder}/health-dashboard/backend && dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient",
+      "isBackground": true,
+      "options": {
+        "env": {
+          "PATH": "${env:PATH}:${env:HOME}/go/bin"
+        }
+      },
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^",
+          "file": 1,
+          "line": 1,
+          "column": 1,
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^API server listening",
+          "endsPattern": "^Got a connection"
+        }
+      }
+    },
+    {
+      "label": "docker-compose-down",
+      "type": "shell",
+      "command": "docker-compose down",
+      "problemMatcher": []
+    }
+  ]
+}

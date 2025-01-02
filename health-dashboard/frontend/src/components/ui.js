@@ -14,15 +14,52 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [systemRes, healthRes, metricsRes] = await Promise.all([
-          fetch('/api/system'),
-          fetch('/api/health/status'),
-          fetch('/api/metrics')
+        const baseUrl = process.env.REACT_APP_API_URL || '';
+        
+        // Fetch critical data first
+        const [systemRes, healthRes] = await Promise.all([
+          fetch(`${baseUrl}/api/system`),
+          fetch(`${baseUrl}/api/health/status`),
         ]);
-
-        setSystemInfo(await systemRes.json());
-        setHealthStatus(await healthRes.json());
-        setMetrics(await metricsRes.json());
+    
+        // Debug responses
+        console.log('System Response:', {
+          status: systemRes.status,
+          statusText: systemRes.statusText
+        });
+        console.log('Health Response:', {
+          status: healthRes.status,
+          statusText: healthRes.statusText
+        });
+    
+        // Check if responses are ok before trying to parse JSON
+        if (!systemRes.ok || !healthRes.ok) {
+          throw new Error('Failed to fetch critical data');
+        }
+    
+        const [systemInfo, healthStatus] = await Promise.all([
+          systemRes.json(),
+          healthRes.json(),
+        ]);
+    
+        setSystemInfo(systemInfo);
+        setHealthStatus(healthStatus);
+    
+        // Fetch metrics separately - don't let it block the main data
+        try {
+          const metricsRes = await fetch(`${baseUrl}/api/metrics`);
+          if (metricsRes.ok) {
+            const metrics = await metricsRes.json();
+            setMetrics(metrics);
+          } else {
+            console.log('Metrics not available');
+            setMetrics([]);  // Set empty metrics
+          }
+        } catch (metricsError) {
+          console.log('Could not fetch metrics:', metricsError);
+          setMetrics([]);  // Set empty metrics
+        }
+    
       } catch (error) {
         console.error('Failed to fetch data:', error);
       } finally {
@@ -111,7 +148,7 @@ const Dashboard = () => {
                 Status: {healthStatus?.regionStatus}
               </AlertDescription>
             </Alert>
-            <Button 
+            <Button
               onClick={handleFailover}
               className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white transition-colors"
             >
@@ -132,29 +169,29 @@ const Dashboard = () => {
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={metrics}>
                 <CartesianGrid strokeDasharray="3 3" className="opacity-50" />
-                <XAxis 
+                <XAxis
                   dataKey="timestamp"
                   className="text-gray-600"
                 />
                 <YAxis className="text-gray-600" />
-                <Tooltip 
-                  contentStyle={{ 
+                <Tooltip
+                  contentStyle={{
                     backgroundColor: 'white',
                     border: '1px solid #e2e8f0',
                     borderRadius: '6px',
                     padding: '8px'
                   }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="latency" 
-                  stroke="#2563eb" 
+                <Line
+                  type="monotone"
+                  dataKey="latency"
+                  stroke="#2563eb"
                   strokeWidth={2}
                   dot={false}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="requestCount" 
+                <Line
+                  type="monotone"
+                  dataKey="requestCount"
                   stroke="#16a34a"
                   strokeWidth={2}
                   dot={false}

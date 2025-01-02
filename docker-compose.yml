@@ -1,3 +1,9 @@
+version: '3.8'
+
+networks:
+  app-network:
+    driver: bridge
+
 services:
   frontend-dev:
     image: node:20-slim
@@ -7,27 +13,37 @@ services:
       - /app/node_modules
     ports:
       - "3000:3000"
-      - "9230:9229" # Map container's 9229 to host's 9230
+      - "9230:9229"
     environment:
       - NODE_ENV=development
       - PORT=3000
       - CI=true
+      - REACT_APP_API_URL=http://west-us:8080
     command: sh -c "npm install && npm run start:debug"
     stdin_open: true
     tty: true
     depends_on:
       - west-us
       - central-us
+    networks:
+      - app-network
 
   west-us:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: debug/Dockerfile.backend.debug
+    security_opt: ["seccomp=unconfined"]
+    cap_add: ["SYS_PTRACE"]
+    ports:
+      - "8081:8080"
+      - "2345:2345"
+    volumes:
+      - ./health-dashboard/backend:/app/backend
     environment:
       - REGION=westus
       - VNET=10.1.0.0/16
       - DEBUG=true
-      # Azure credentials and config
+      - PORT=8080
       - SUBSCRIPTION_ID=00000000-0000-0000-0000-000000000000
       - RESOURCE_GROUP=rg-dev-azure
       - APP_NAME=app-app-healthapp-westus-dev-31bb0r64
@@ -38,21 +54,25 @@ services:
       - PAIRED_REGION=centralus
       - HOSTNAME=webapp-west-1
       - LOCAL_MODE=true
-    ports:
-      - "8081:8080"
-    volumes:
-      - ./health-dashboard/backend:/app/backend:ro
-      - ./health-dashboard/frontend/src:/app/frontend/src:ro
-
+    networks:
+      - app-network
+      
   central-us:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: debug/Dockerfile.backend.debug
+    security_opt: ["seccomp=unconfined"]
+    cap_add: ["SYS_PTRACE"]
+    ports:
+      - "8082:8080"
+      - "2346:2345"
+    volumes:
+      - ./health-dashboard/backend:/app/backend
     environment:
       - REGION=centralus
       - VNET=10.2.0.0/16
       - DEBUG=true
-      # Azure credentials and config
+      - PORT=8080
       - SUBSCRIPTION_ID=00000000-0000-0000-0000-000000000000
       - RESOURCE_GROUP=rg-dev-azure
       - APP_NAME=app-app-healthapp-centralus-dev-i5sugn88
@@ -63,11 +83,8 @@ services:
       - PAIRED_REGION=westus
       - HOSTNAME=webapp-central-1
       - LOCAL_MODE=true
-    ports:
-      - "8082:8080"
-    volumes:
-      - ./health-dashboard/backend:/app/backend:ro
-      - ./health-dashboard/frontend/src:/app/frontend/src:ro
+    networks:
+      - app-network
 
   traffic-manager:
     build:
@@ -82,3 +99,5 @@ services:
     depends_on:
       - west-us
       - central-us
+    networks:
+      - app-network
