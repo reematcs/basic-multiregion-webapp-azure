@@ -22,3 +22,6 @@ terraform.rc
 
 # Ignore node_modules files
 /health-dashboard/frontend/node_modules/*
+
+# Ignore debug files
+/health-dashboard/backend/__debug_bin*

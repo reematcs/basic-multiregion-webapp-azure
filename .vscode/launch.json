@@ -36,9 +36,10 @@
       "mode": "remote",
       "remotePath": "/app/backend",
       "port": 2345,
-      "host": "localhost",
+      "host": "127.0.0.1",
       "showLog": true,
-      "trace": "verbose"
+      "apiVersion": 2,
+      "debugAdapter": "legacy"
     },
     {
       "name": "Debug Central US Backend",
@@ -66,7 +67,6 @@
     }
   ]
 }
-
 // {
 //   "version": "0.2.0",
 //   "configurations": [

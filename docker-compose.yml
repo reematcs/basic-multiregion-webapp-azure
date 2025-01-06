@@ -1,7 +1,8 @@
-version: '3.8'
+
 
 networks:
   app-network:
+    name: health-dashboard-network
     driver: bridge
 
 services:
@@ -19,7 +20,9 @@ services:
       - PORT=3000
       - CI=true
       - REACT_APP_API_URL=http://west-us:8080
-    command: sh -c "npm install && npm run start:debug"
+    command: >
+      sh -c "npm install http-proxy-middleware --save-dev &&
+             FORCE_COLOR=true npm run start:debug | cat"
     stdin_open: true
     tty: true
     depends_on:
